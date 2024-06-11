@@ -9,18 +9,21 @@
 <body>
 
 <div id="container">
+<h1>sintetizadores de voz</h1>
 <div id="tts-container">
-  <textarea id="input-text" rows="8" cols="60"></textarea><br>
+  <h2>Texto a Voz (Español)</h2>
+  <textarea id="input-text" rows="8" cols="40"></textarea><br>
   <select id="voice-select"></select><br>
   <button onclick="textToSpeech()">Leer texto escrito</button>
 </div>
 
 <div id="vtt-container">
+  <h2>Voz a texto</h2>
   <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><br>
-  <textarea id="output-text" rows="8" cols="60"></textarea>
+  <textarea id="output-text" rows="8" cols="40"></textarea>
 </div>
 </div>
 <script src="script.js"></script>
-
 </body>
+<footer>Hecho por Derpmagician</footer>
 </html>

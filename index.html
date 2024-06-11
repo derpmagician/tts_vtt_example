@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VTT y TTS ejemplo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="container">
+<div id="tts-container">
+  <textarea id="input-text" rows="8" cols="60"></textarea><br>
+  <select id="voice-select"></select><br>
+  <button onclick="textToSpeech()">Leer texto escrito</button>
+</div>
+
+<div id="vtt-container">
+  <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><br>
+  <textarea id="output-text" rows="8" cols="60"></textarea>
+</div>
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>

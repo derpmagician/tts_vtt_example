@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic);
+html {
+  box-sizing: border-box;
+}
+* {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: mediumvioletred;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+#container {
+  display: grid;
+  gap: 20px;
+  background-color:lightseagreen;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#tts-container,
+#vtt-container {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+textarea {
+  padding: 5px 10px;
+  margin: 0 10px 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+select {
+  margin: 0 10px;
+  font-size: 16px;
+  padding: 5px 10px;
+}
+
+button {
+  cursor: pointer;
+  background-color: mediumvioletred;
+  color: white;
+  border-color: white;
+  padding: 5px 10px;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: darkviolet;
+}
+
+button:disabled {
+  background-color:gray;
+  cursor:not-allowed
+}
+
+#voice-input {
+  color: white;
+}

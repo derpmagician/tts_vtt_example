@@ -1,12 +1,16 @@
 const video = document.getElementById('video')
 let faceCanvas = document.getElementById('face')
 
+const modelsUrlBase = window.location.origin === 'https://derpmagician.github.io'
+ ? 'https://derpmagician.github.io/tts_vtt_example/models'
+  : '/models';
+
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-  faceapi.nets.ageGenderNet.loadFromUri("/models"),
+  faceapi.nets.tinyFaceDetector.loadFromUri(modelsUrlBase),
+  faceapi.nets.faceLandmark68Net.loadFromUri(modelsUrlBase),
+  faceapi.nets.faceRecognitionNet.loadFromUri(modelsUrlBase),
+  faceapi.nets.faceExpressionNet.loadFromUri(modelsUrlBase),
+  faceapi.nets.ageGenderNet.loadFromUri(modelsUrlBase),
 ]).then(startVideo)
 
 function startVideo() {

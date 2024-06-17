@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VTT y TTS ejemplo</title>
   <link rel="stylesheet" href="voz_estilos.css">
+  <script defer src="face-api.min.js"></script>
+  <script defer src="cara-script.js"></script>
   <script defer src="voz-script.js"></script>
+
 </head>
 <body>
+<h1>Sistemas demos de ia</h1>
 <main id="contenedor_principal_voz">
   <section id="contenedor_voz">
-    <h1>sintetizadores de voz</h1>
+    <h2>sintetizadores de voz</h2>
     <div id="tts-container">
       <h2>Texto a Voz (Español)</h2>
       <textarea id="input-text" rows="8" cols="40"></textarea><br>
@@ -27,11 +31,14 @@
   </section>
 
   <section id="contenedor_cara">
-    aaa
+    <h2>Sistema de deteccion de expresiones, Genero y Edad</h2>
+    <canvas id="face" width="600" height="400"></canvas>
+    <video id="video" width="600" height="400" autoplay muted></video>
+
   </section>
 </main>
 
-<script src="voz-script.js"></script>
+<!-- <script src="voz-script.js"></script> -->
 </body>
 <footer>Hecho por Derpmagician</footer>
 </html>

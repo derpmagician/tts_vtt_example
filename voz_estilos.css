@@ -15,7 +15,13 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-#contenedor_voz {
+main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+section{
   display: grid;
   gap: 20px;
   background-color:lightseagreen;
@@ -24,7 +30,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
+h2 {
   color: rgb(77, 8, 51);
   letter-spacing: 2px;
   text-align: center;
@@ -32,7 +38,7 @@ h1 {
   margin: 0;
 }
 
-h2 {
+h3 {
   margin: 0;
 }
 
@@ -82,6 +88,25 @@ button:disabled {
 
 #voice-input {
   color: white;
+}
+
+canvas {
+  position: absolute;
+  top: 200px;
+  /* background-color: green; */
+  z-index: 10;
+}
+
+video {
+  /* background-color: blue; */
+  position: absolute;
+  top: 200px;
+  z-index: 1;
+
+}
+
+#contenedor_cara {
+  margin: 0;
 }
 
 footer {

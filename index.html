@@ -4,25 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VTT y TTS ejemplo</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="voz_estilos.css">
+  <script defer src="voz-script.js"></script>
 </head>
 <body>
+<main id="contenedor_principal_voz">
+  <section id="contenedor_voz">
+    <h1>sintetizadores de voz</h1>
+    <div id="tts-container">
+      <h2>Texto a Voz (Español)</h2>
+      <textarea id="input-text" rows="8" cols="40"></textarea><br>
+      <select id="voice-select"></select><br>
+      <button onclick="textToSpeech()">Leer texto escrito</button>
+    </div>
+  
+    <div id="vtt-container">
+      <h2>Voz a texto</h2>
+      <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><br>
+      <textarea id="output-text" rows="8" cols="40"></textarea>
+    </div>
 
-<div id="container">
-<h1>sintetizadores de voz</h1>
-<div id="tts-container">
-  <h2>Texto a Voz (Español)</h2>
-  <textarea id="input-text" rows="8" cols="40"></textarea><br>
-  <select id="voice-select"></select><br>
-  <button onclick="textToSpeech()">Leer texto escrito</button>
-</div>
+  </section>
 
-<div id="vtt-container">
-  <h2>Voz a texto</h2>
-  <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><br>
-  <textarea id="output-text" rows="8" cols="40"></textarea>
-</div>
-</div>
+  <section id="contenedor_cara">
+    aaa
+  </section>
+</main>
+
 <script src="voz-script.js"></script>
 </body>
 <footer>Hecho por Derpmagician</footer>

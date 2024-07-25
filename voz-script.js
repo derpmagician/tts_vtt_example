@@ -48,7 +48,9 @@ async function voiceToText() {
   try {
     // Desactiva el botón de transcripción
     const transcribeBtn = document.getElementById('transcribe-btn');
+    const loadingElement = document.querySelector('.loading');
     transcribeBtn.disabled = true;
+    loadingElement.style.display = 'inline';
 
     const recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
@@ -66,6 +68,7 @@ async function voiceToText() {
 
       // Reactiva el botón de transcripción después de la transcripción
       transcribeBtn.disabled = false;
+      loadingElement.style.display = 'none';
     };
 
     recognition.start();

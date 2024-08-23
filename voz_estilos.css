@@ -93,23 +93,29 @@ button:disabled {
   color: white;
 }
 
-canvas {
+#contenedor_cara {
+  margin: 0;
+  background-color: red;
+  display: grid;
+  justify-content: center;
+}
+
+canvas, video{
   position: absolute;
-  top: 200px;
+  top: 230px;
+  /* width: 600px;
+  height: 400px; */
+}
+
+canvas {
   /* background-color: green; */
   z-index: 10;
 }
 
 video {
   /* background-color: blue; */
-  position: absolute;
-  top: 200px;
   z-index: 1;
 
-}
-
-#contenedor_cara {
-  margin: 0;
 }
 
 footer {
@@ -132,4 +138,23 @@ footer {
   100% {
     color: #e9e9e9;
   }
+}
+
+@media (max-width: 1500px) {
+  canvas, video {
+    top: 260px;
+  }
+}
+
+@media (max-width: 1020px) {
+  canvas, video {
+    top: 290px;
+  }
+  /* main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  #contenedor_voz, #contenedor_cara {
+    grid-column: span 1; 
+  } */
 }

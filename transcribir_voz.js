@@ -1,8 +1,36 @@
 const transcribeBtn = document.getElementById('transcribe-btn');
 const stopTranscribeBtn = document.getElementById('stop-transcribe-btn');
 const loadingElement = document.querySelector('.loading');
+const commandsElement = document.getElementById('commands');
 
-let recognition; // Variable global para almacenar la instancia de reconocimiento
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList
+
+var colors = [
+  'aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate',
+  'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray',
+  'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta',
+  'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink',
+  'plum', 'purple', 'red', 'salmon', 'sienna', 'silver', 'snow', 'tan',
+  'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'
+];
+
+
+colors.forEach(color => {
+  const colorSpan = document.createElement('span');
+  colorSpan.textContent = color;
+  colorSpan.style.backgroundColor = color;
+  colorSpan.style.padding = '3px';
+  colorSpan.style.margin = '3px';
+
+  
+  commandsElement.appendChild(colorSpan);
+});
+
+function createSRGSGrammar(colors) {
+  return `#JSGF V1.0;\ngrammar colors;\npublic <color> ${colors.map(c => c.toLowerCase()).join(' | ')};`;
+}
+
 
 function stopTranscription() {
   if (recognition) {
@@ -21,7 +49,7 @@ async function voiceToText() {
     stopTranscribeBtn.disabled = false;
     loadingElement.style.display = 'inline';
 
-    recognition = new webkitSpeechRecognition();
+    recognition = new SpeechRecognition ();
     recognition.continuous = true;
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
@@ -41,19 +69,22 @@ async function voiceToText() {
 
     recognition.onend = function () {
       console.log('Recognition ended');
-      // Reactiva el botón cuando la transcripción termina
-      // transcribeBtn.disabled = false;
-      // loadingElement.style.display = 'none';
     };
 
     recognition.onresult = function (event) {
       const transcript = Array.from(event.results)
         .map(result => result[0])
         .map(result => result.transcript)
-        .join('');
+        .join('').toLowerCase();;
 
       document.getElementById('output-text').value = transcript;
       // console.log(transcript);
+      const matchingColor = colors.find(color => color.toLowerCase().includes(transcript));
+
+      if (matchingColor) {
+        // Cambiamos el fondo del body al color coincidente
+        document.body.style.backgroundColor = matchingColor;
+      }
     };
 
     recognition.start();

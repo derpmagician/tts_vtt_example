@@ -43,43 +43,21 @@ function textToSpeech() {
   window.speechSynthesis.speak(msg);
 }
 
-// Función para convertir voz a texto
-async function voiceToText() {
-  try {
-    // Desactiva el botón de transcripción
-    const transcribeBtn = document.getElementById('transcribe-btn');
-    const loadingElement = document.querySelector('.loading');
-    transcribeBtn.disabled = true;
-    loadingElement.style.display = 'inline';
+const transcribeBtn = document.getElementById('transcribe-btn');
+const stopTranscribeBtn = document.getElementById('stop-transcribe-btn');
+const loadingElement = document.querySelector('.loading');
 
-    const recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+let recognition; // Variable global para almacenar la instancia de reconocimiento
 
-    recognition.onresult = function (event) {
-      const transcript = Array.from(event.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
-        .join('');
-
-      document.getElementById('output-text').value = transcript;
-      console.log(transcript);
-
-      // Reactiva el botón de transcripción después de la transcripción
-      transcribeBtn.disabled = false;
-      loadingElement.style.display = 'none';
-    };
-
-    recognition.start();
-  } catch (err) {
-    console.error(err);
-
-    // En caso de error, también es buena práctica reactivar el botón
-    const transcribeBtn = document.getElementById('transcribe-btn');
+function stopTranscription() {
+  if (recognition) {
+    recognition.stop();
     transcribeBtn.disabled = false;
+    stopTranscribeBtn.disabled = true;
+    loadingElement.style.display = 'none';
   }
 }
 
-// Cargar las voces al iniciar la página
+
+
 window.addEventListener('load', loadVoices);

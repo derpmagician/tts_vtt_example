@@ -3,7 +3,7 @@ let faceCanvas = document.getElementById('face')
 
 const modelsUrlBase = window.location.origin === 'https://derpmagician.github.io'
   ? 'https://derpmagician.github.io/tts_vtt_example/models'
-  : '/tts_vtt_example/models';
+  : '/models';
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri(modelsUrlBase),

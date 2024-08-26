@@ -8,36 +8,46 @@
   <script defer src="face-api.min.js"></script>
   <script defer src="cara-script.js"></script>
   <script defer src="voz-script.js"></script>
+  <script defer src="transcribir_voz.js"></script>
+
 
 </head>
 <body>
 <h1 class="titulo">Sistemas demos de ia</h1><span class="msg">Habilitar microfono y camara</span>
 <main id="contenedor_principal_voz">
+  <section id="contenedor_cara">
+    <h2>Sistema de deteccion de expresiones, Genero y Edad</h2>
+    <div id="=contenedor_video">
+      <canvas id="face" width="600" height="400"></canvas>
+      <video id="video" width="600" height="400" autoplay muted></video>
+    </div>
+  </section>
   <section id="contenedor_voz">
     <h2>sintetizadores de voz</h2>
-    <div id="tts-container">
+    <div id="tts_container">
       <h2>Texto a Voz (Español)</h2>
       <textarea id="input-text" rows="8" cols="40"></textarea><br>
       <select id="voice-select"></select><br>
       <button onclick="textToSpeech()">Leer texto escrito</button>
     </div>
-  
-    <div id="vtt-container">
+
+    <div id="vtt_container">
       <h2>Voz a texto</h2>
-      <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><span class="loading">empiece a hablar</span>
-      
+      <div class="vtt_comands">
+        <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><span class="loading">empiece a hablar</span>
+        <button id="stop-transcribe-btn" onclick="stopTranscription()" disabled>Detener</button>
+      </div>
+      <!-- <div class="vtt_comands">
+        <button id="transcribe-btn" onclick="startTranscription()">Transcribir voz a texto</button><span class="loading">empiece a hablar</span>
+        <button id="transcribe-btn" onclick="stopTranscription()">Detener</button><span class="loading">empiece a hablar</span>
+      </div> -->
       <textarea id="output-text" rows="8" cols="40"></textarea>
-      
+
     </div>
 
   </section>
 
-  <section id="contenedor_cara">
-    <h2>Sistema de deteccion de expresiones, Genero y Edad</h2>
-    <canvas id="face" width="600" height="400"></canvas>
-    <video id="video" width="600" height="400" autoplay muted></video>
 
-  </section>
 </main>
 
 <!-- <script src="voz-script.js"></script> -->

@@ -1,3 +1,18 @@
+const transcribeBtn = document.getElementById('transcribe-btn');
+const stopTranscribeBtn = document.getElementById('stop-transcribe-btn');
+const loadingElement = document.querySelector('.loading');
+
+let recognition; // Variable global para almacenar la instancia de reconocimiento
+
+function stopTranscription() {
+  if (recognition) {
+    recognition.stop();
+    transcribeBtn.disabled = false;
+    stopTranscribeBtn.disabled = true;
+    loadingElement.style.display = 'none';
+  }
+}
+
 // Función para convertir voz a texto
 async function voiceToText() {
   try {

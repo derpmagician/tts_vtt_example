@@ -21,7 +21,6 @@ function startVideo() {
   )
 }
 
-
 video.addEventListener('play', () => {
 
   if (!faceCanvas) {

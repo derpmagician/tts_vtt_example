@@ -22,28 +22,31 @@ function startVideo() {
 }
 
 video.addEventListener('play', () => {
+  // Asegurarse de que el video tiene dimensiones válidas
+  const checkVideoDimensions = () => {
+    if (video.videoWidth > 0 && video.videoHeight > 0) {
+      const displaySize = { width: video.videoWidth, height: video.videoHeight };
+      faceapi.matchDimensions(faceCanvas, displaySize);
 
-  if (!faceCanvas) {
-    faceCanvas = faceapi.createCanvasFromMedia(video);
-    document.body.append(faceCanvas); // Append the canvas to the body
-  }
+      setInterval(async () => {
+        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions().withAgeAndGender();
+        const resizedDetections = faceapi.resizeResults(detections, displaySize);
+        faceCanvas.getContext('2d').clearRect(0, 0, faceCanvas.width, faceCanvas.height);
+        faceapi.draw.drawDetections(faceCanvas, resizedDetections);
+        faceapi.draw.drawFaceLandmarks(faceCanvas, resizedDetections);
+        faceapi.draw.drawFaceExpressions(faceCanvas, resizedDetections);
+        resizedDetections.forEach(detection => {
+          const box = detection.detection.box;
+          const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + " year old " + detection.gender });
+          drawBox.draw(faceCanvas);
+        });
+      }, 100);
+    } else {
+      // Reintentar verificar dimensiones después de un breve retraso
+      setTimeout(checkVideoDimensions, 100);
+    }
+  };
 
-  // const canvas = faceapi.createCanvasFromMedia(video)
-  // document.body.append(canvas)
-  const displaySize = { width: video.width, height: video.height }
-  console.log("displaySize", displaySize);
-  faceapi.matchDimensions(faceCanvas, displaySize)
-  setInterval(async () => {
-    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions().withAgeAndGender()
-    const resizedDetections = faceapi.resizeResults(detections, displaySize)
-    faceCanvas.getContext('2d').clearRect(0, 0, faceCanvas.width, faceCanvas.height)
-    faceapi.draw.drawDetections(faceCanvas, resizedDetections)
-    faceapi.draw.drawFaceLandmarks(faceCanvas, resizedDetections)
-    faceapi.draw.drawFaceExpressions(faceCanvas, resizedDetections)
-    resizedDetections.forEach( detection => {
-      const box = detection.detection.box
-      const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + " year old " + detection.gender })
-      drawBox.draw(faceCanvas)
-    })
-  }, 100)
-})
+  checkVideoDimensions();
+});
+

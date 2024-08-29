@@ -1,17 +1,37 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic);
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  margin: 0;
-}
-
 main {
   display: block;
 }
+
+.loading {
+  text-align: center;
+  animation: loading 1.2s ease-in-out infinite;
+  display: none
+}
+
+canvas {
+  z-index: 10;
+}
+
+video {
+  z-index: 1;
+}
+
+
+
 
 h1 {
   font-size: 2em;
@@ -19,7 +39,6 @@ h1 {
 }
 
 hr {
-  box-sizing: content-box;
   height: 0;
   overflow: visible;
 }
@@ -42,11 +61,6 @@ abbr[title] {
 b,
 strong {
   font-weight: bolder;
-}
-
-
-* {
-  box-sizing:border-box;
 }
 
 body {
@@ -163,35 +177,15 @@ canvas, video{
   top: 100px;
 }
 
-canvas {
-  z-index: 10;
-}
 
-video {
-  z-index: 1;
-}
 
 footer {
   color: gold;
 }
 
-.loading {
-  text-align: center;
-  animation: loading 1.2s ease-in-out infinite;
-  display: none
-}
 
-@keyframes loading {
-  0% {
-    color: #e9e9e9;
-  }
-  50% {
-    color: #b89b84;
-  }
-  100% {
-    color: #e9e9e9;
-  }
-}
+
+
 
 @media (max-width: 1600px) {
   canvas, video {
@@ -234,5 +228,19 @@ footer {
   }
   textarea {
     min-width: 28rem;
+  }
+}
+
+
+
+@keyframes loading {
+  0% {
+    color: #e9e9e9;
+  }
+  50% {
+    color: #b89b84;
+  }
+  100% {
+    color: #e9e9e9;
   }
 }

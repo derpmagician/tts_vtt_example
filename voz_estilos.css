@@ -132,8 +132,24 @@ footer {
   text-align: center;
 }
 
+#tts_container, #vtt_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
 
+#tts_container textarea, #vtt_container textarea {
+  width: 100%;
+  max-width: 600px;
+  margin: 10px auto;
+  display: block;
+}
 
+#tts_container select, #vtt_container button {
+  margin: 10px auto;
+  display: block;
+}
 
 @keyframes loading {
   0% {
@@ -150,12 +166,6 @@ footer {
 @media (max-width: 800px) {
   main {
     grid-template-columns: repeat(1, 1fr);
-  }
-
-  section{
-    display: grid;
-    background-color:red;
-
   }
 
 }

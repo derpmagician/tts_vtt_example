@@ -76,7 +76,7 @@ main {
 section{
   display: grid;
   /* gap: 8px; */
-  background-color:lightseagreen;
+  background-color:rgb(32, 178, 170, 0.75);
   min-height: 700px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);

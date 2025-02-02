@@ -18,15 +18,70 @@ var colors = [
   'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'
 ];
 
-// Crear elementos visuales para cada color disponible
-colors.forEach(color => {
-  const colorSpan = document.createElement('span');
-  colorSpan.textContent = color;
-  colorSpan.style.backgroundColor = color;
-  colorSpan.style.padding = '3px';
-  colorSpan.style.margin = '3px';
+// Mapeo de colores en español a inglés
+const colorTranslations = {
+  'agua': 'aqua',
+  'azul': 'blue',
+  'beige': 'beige',
+  'bisque': 'bisque',
+  'negro': 'black',
+  'marrón': 'brown',
+  'chocolate': 'chocolate',
+  'coral': 'coral',
+  'carmesí': 'crimson',
+  'cian': 'cyan',
+  'fucsia': 'fuchsia',
+  'fantasma': 'ghostwhite',
+  'dorado': 'gold',
+  'gris': 'gray',
+  'verde': 'green',
+  'índigo': 'indigo',
+  'marfil': 'ivory',
+  'caqui': 'khaki',
+  'lavanda': 'lavender',
+  'lima': 'lime',
+  'lino': 'linen',
+  'magenta': 'magenta',
+  'granate': 'maroon',
+  'mocasín': 'moccasin',
+  'marino': 'navy',
+  'oliva': 'olive',
+  'naranja': 'orange',
+  'orquidea': 'orchid',
+  'perú': 'peru',
+  'rosa': 'pink',
+  'ciruela': 'plum',
+  'púrpura': 'purple',
+  'rojo': 'red',
+  'salmón': 'salmon',
+  'siena': 'sienna',
+  'plateado': 'silver',
+  'nieve': 'snow',
+  'bronceado': 'tan',
+  'turquesa': 'turquoise',
+  'violeta': 'violet',
+  'blanco': 'white',
+  'amarillo': 'yellow'
+};
 
-  
+const colorTranslationsReversed = Object.fromEntries(
+  Object.entries(colorTranslations).map(([key, value]) => [value, key])
+);
+
+// Lista de colores oscuros para aplicar texto blanco
+const darkColors = ['black', 'indigo', 'maroon', 'navy', 'purple'];
+
+// Crear elementos visuales para cada color disponible
+Object.entries(colorTranslations).forEach(([spanish, english]) => {
+  const colorSpan = document.createElement('span');
+  colorSpan.textContent = `${spanish} (${english})`; // Muestra ambos nombres
+  colorSpan.style.backgroundColor = english; // Usa el valor en inglés
+  colorSpan.style.color = darkColors.includes(english) ? 'white' : 'black'; // Texto blanco en colores oscuros
+  colorSpan.style.padding = '5px';
+  colorSpan.style.margin = '5px';
+  colorSpan.style.borderRadius = '3px';
+  colorSpan.style.display = 'inline-block';
+
   commandsElement.appendChild(colorSpan);
 });
 
@@ -84,13 +139,18 @@ async function voiceToText() {
       const transcript = Array.from(event.results)
         .map(result => result[0])
         .map(result => result.transcript)
-        .join('').toLowerCase();;
+        .join('').toLowerCase();
 
       // Mostrar el texto transcrito
       document.getElementById('output-text').value = transcript;
       // console.log(transcript);
       // Buscar si el texto coincide con algún color y cambiar el fondo
-      const matchingColor = colors.find(color => color.toLowerCase().includes(transcript));
+      let matchingColor = colorTranslations[transcript];
+
+      // Si no se encuentra en español, buscar en inglés
+      if (!matchingColor) {
+        matchingColor = colors.find(color => color.toLowerCase() === transcript);
+      }
 
       if (matchingColor) {
         // Cambiamos el fondo del body al color coincidente

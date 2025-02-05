@@ -28,6 +28,50 @@ Este proyecto es una aplicación web que combina varias tecnologías de interacc
   - Puntos de referencia facial
 - Visualización en tiempo real sobre un canvas
 
+## APIs Utilizadas
+
+### Web Speech API
+- **SpeechSynthesis (Text-to-Speech)**
+  - Implementada en `voz-script.js`
+  - Utiliza `window.speechSynthesis` para la síntesis de voz
+  - Permite seleccionar voces en español del sistema
+  - Configuración de parámetros:
+    - Volumen
+    - Velocidad
+    - Tono
+
+- **SpeechRecognition (Speech-to-Text)**
+  - Implementada en `transcribir_voz.js`
+  - Utiliza `SpeechRecognition` o `webkitSpeechRecognition`
+  - Incluye gramática SRGS (Speech Recognition Grammar Specification)
+  - Reconocimiento continuo en español
+  - Detección de comandos de color en tiempo real
+
+### Face-API.js
+- Implementada en `cara-script.js`
+- Biblioteca basada en TensorFlow.js para detección facial
+- Modelos utilizados:
+  - Detección facial (face-detection)
+  - Reconocimiento de edad y género
+  - Detección de expresiones faciales
+  - Puntos de referencia facial (landmarks)
+- Carga modelos desde directorio local o GitHub Pages
+- Procesamiento en tiempo real mediante canvas
+
+## Requisitos de APIs
+
+### Web Speech API
+- Requiere navegador compatible con Web Speech API
+- No necesita clave de API
+- Funciona offline una vez cargadas las voces
+- Mejor soporte en Chrome y Edge
+
+### Face-API.js
+- Requiere navegador con soporte WebGL
+- No necesita clave de API
+- Modelos se cargan desde el servidor local o CDN
+- Requiere acceso a la cámara web (getUserMedia API)
+
 ## Requisitos Técnicos
 - Navegador moderno con soporte para:
   - WebRTC (para acceso a la cámara)

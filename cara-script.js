@@ -108,8 +108,17 @@ video.addEventListener('play', () => {
   const checkVideoDimensions = () => {
     if (video.videoWidth > 0 && video.videoHeight > 0) {
       const displaySize = { width: video.videoWidth, height: video.videoHeight };
-      faceapi.matchDimensions(faceCanvas, displaySize);
+      faceapi.matchDimensions(faceCanvas, displaySize);      // Crear un elemento para mostrar información de detección de forma accesible
+      const facialDetectionInfo = document.createElement('div');
+      facialDetectionInfo.id = 'facial-detection-info';
+      facialDetectionInfo.setAttribute('role', 'status');
+      facialDetectionInfo.setAttribute('aria-live', 'polite');
+      facialDetectionInfo.className = 'sr-only';
+      document.getElementById('contenedor_video').appendChild(facialDetectionInfo);
 
+      // Variable para seguir el número de rostros detectados previamente
+      let previousDetectionCount = 0;
+      
       // Configurar intervalo para detectar y dibujar características faciales
       setInterval(async () => {
         // Detectar todas las caras y sus características
@@ -130,11 +139,41 @@ video.addEventListener('play', () => {
         faceapi.draw.drawFaceExpressions(faceCanvas, resizedDetections);
         
         // Dibujar edad y género para cada cara detectada
-        resizedDetections.forEach(detection => {
-          const box = detection.detection.box;
-          const drawBox = new faceapi.draw.DrawBox(box, { label: Math.round(detection.age) + " year old " + detection.gender });
-          drawBox.draw(faceCanvas);
-        });
+        let accessibleInfo = "";
+        if (resizedDetections.length === 0) {
+          accessibleInfo = "No se detectan rostros en la imagen";
+        } else {
+          accessibleInfo = `Detectados ${resizedDetections.length} rostro${resizedDetections.length > 1 ? 's' : ''}: `;
+          
+          resizedDetections.forEach((detection, index) => {
+            const box = detection.detection.box;
+            const drawBox = new faceapi.draw.DrawBox(box, { 
+              label: Math.round(detection.age) + " year old " + detection.gender 
+            });
+            drawBox.draw(faceCanvas);
+            
+            // Obtener la expresión dominante
+            let dominantExpression = "";
+            let maxScore = 0;
+            
+            Object.entries(detection.expressions).forEach(([expression, score]) => {
+              if (score > maxScore) {
+                maxScore = score;
+                dominantExpression = expression;
+              }
+            });
+            
+            // Añadir información descriptiva para el lector de pantalla
+            accessibleInfo += `Persona ${index + 1}: aproximadamente ${Math.round(detection.age)} años, 
+              género ${detection.gender}, expresión ${dominantExpression}. `;
+          });
+        }
+        
+        // Actualizar información accesible solo cuando cambia
+        if (resizedDetections.length !== previousDetectionCount) {
+          facialDetectionInfo.textContent = accessibleInfo;
+          previousDetectionCount = resizedDetections.length;
+        }
       }, 100); // Actualizar cada 100ms
     } else {
       // Si el video aún no tiene dimensiones, reintentar

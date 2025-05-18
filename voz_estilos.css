@@ -1,5 +1,88 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic);
 
+:root {
+  /* Colores primarios */
+  --color-primary: #3498db;
+  --color-primary-dark: #2980b9;
+  --color-secondary: rgb(77, 8, 51);
+  --color-accent: rgb(32, 178, 170);
+  --color-accent-alpha: rgba(32, 178, 170, 0.75);
+  
+  /* Colores de estado */
+  --color-focus: #4a90e2;
+  --color-error: #ff6b6b;
+  --color-error-bg: #fff0f0;
+  
+  /* Colores de texto */
+  --color-text-light: #ffffff;
+  --color-text-dark: #2c3e50;
+  --color-input-text: #2c3e50; /* Color para el texto en campos de formulario */
+  --color-label-text: #2c3e50; /* Color específico para etiquetas de formulario */
+  --color-link: #3498db;
+  
+  /* Colores de interfaz */
+  --color-button-border: #2c3e50;
+  --color-button-bg: #3498db;
+  --color-button-text: #ffffff;
+  --color-button-disabled-bg: #95a5a6;
+  --color-button-disabled-border: #7f8c8d;
+  --color-button-disabled-text: #ecf0f1;
+  
+  /* Colores de fondo */
+  --color-bg-main: rgb(77, 8, 51);
+  --color-bg-section: rgba(32, 178, 170, 0.75);
+  --color-bg-shadow: rgba(0, 0, 0, 0.6);
+  
+  /* Colores de animación */
+  --color-loading-start: #e9e9e9;
+  --color-loading-middle: #b89b84;
+  
+  /* Otros colores */
+  --color-gold: gold;
+  --color-aliceblue: aliceblue;
+}
+
+/* Tema oscuro - puede activarse añadiendo la clase 'dark-theme' al elemento html */
+.dark-theme {
+  /* Colores primarios en modo oscuro */
+  --color-primary: #2980b9;
+  --color-primary-dark: #1a5276;
+  --color-secondary: rgb(220, 160, 180); /* Color más claro para mejorar contraste */
+  --color-accent: rgb(20, 120, 120);
+  --color-accent-alpha: rgba(20, 120, 120, 0.8);
+  
+  /* Colores de estado en modo oscuro */
+  --color-focus: #3498db;
+  --color-error: #e74c3c;
+  --color-error-bg: #2c3e50;
+    /* Colores de texto en modo oscuro */
+  --color-text-light: #ecf0f1;
+  --color-text-dark: #bdc3c7;
+  --color-input-text: #2c3e50; /* Color para el texto en inputs, se mantiene oscuro */
+  --color-label-text: #ecf0f1; /* Color específico para etiquetas de formulario en modo oscuro */
+  --color-link: #3498db;
+  
+  /* Colores de interfaz en modo oscuro */
+  --color-button-border: #1a5276;
+  --color-button-bg: #2980b9;
+  --color-button-text: #ecf0f1;
+  --color-button-disabled-bg: #7f8c8d;
+  --color-button-disabled-border: #2c3e50;
+  --color-button-disabled-text: #bdc3c7;
+    /* Colores de fondo en modo oscuro */
+  --color-bg-main: #2c3e50;
+  --color-bg-section: rgba(25, 60, 90, 0.85); /* Fondo más oscuro y menos transparente */
+  --color-bg-shadow: rgba(0, 0, 0, 0.8);
+  
+  /* Colores de animación en modo oscuro */
+  --color-loading-start: #bdc3c7;
+  --color-loading-middle: #7f8c8d;
+  
+  /* Otros colores en modo oscuro */
+  --color-gold: #f1c40f;
+  --color-aliceblue: #f5f5f5;
+}
+
 *,
 *::before,
 *::after {
@@ -12,6 +95,99 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Clase para elementos visualmente ocultos pero accesibles para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Estilos para elementos con foco - mejora de accesibilidad */
+*:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Estilo para elementos con error de validación */
+[aria-invalid="true"] {
+  border: 2px solid var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+/* Mejora de contraste para botones y controles interactivos */
+button, select {
+  border: 2px solid var(--color-button-border);
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estado de botón deshabilitado con suficiente contraste */
+button[disabled], button[aria-disabled="true"] {
+  background-color: var(--color-button-disabled-bg);
+  border-color: var(--color-button-disabled-border);
+  cursor: not-allowed;
+  color: var(--color-button-disabled-text);
+}
+
+/* Agregar indicadores visuales de estado que complementan ARIA */
+button:hover:not([disabled]):not([aria-disabled="true"]) {
+  background-color: var(--color-primary-dark);
+}
+
+/* Clase para mensajes de error visuales */
+.error-message {
+  color: var(--color-error);
+  font-weight: bold;
+  padding: 5px;
+  margin-top: 5px;
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Estilo para el contenedor del botón de cambio de tema */
+.theme-toggle-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Estilo para el botón de cambio de tema */
+#theme-toggle {
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+  border: 2px solid var(--color-button-border);
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 0.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Estilo para el icono del botón */
+.toggle-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
 main {
   display: block;
 }
@@ -19,7 +195,20 @@ main {
 .loading {
   text-align: center;
   animation: loading 1.2s ease-in-out infinite;
-  display: none
+  display: none;
+  color: var(--color-primary); /* Color distintivo para mensajes de estado */
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Estado de carga más visible en tema oscuro */
+.dark-theme .loading {
+  color: var(--color-gold);
+  background-color: rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
 canvas {
@@ -61,8 +250,9 @@ strong {
 }
 
 body {
-  background-color: rgb(77, 8, 51);
+  background-color: var(--color-bg-main);
   font-family: 'Lato', sans-serif;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 main {
@@ -76,10 +266,10 @@ main {
 section{
   display: grid;
   /* gap: 8px; */
-  background-color:rgb(32, 178, 170, 0.75);
+  background-color: var(--color-bg-section);
   min-height: 700px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 8px var(--color-bg-shadow);
   min-width: 360px;
   max-width: 800px;
 }
@@ -88,23 +278,75 @@ section{
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
-
+  color: var(--color-text-light);
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-h1.titulo, .msg {
-  color:aliceblue;
+.hints {
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.theme-commands {
+  color: var(--color-label-text);
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 5px;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+}
+
+h1.titulo {
+  color: var(--color-aliceblue);
   text-align: center;
   letter-spacing: 2px;
   text-transform: capitalize;
 }
 
+.msg {
+  color: var(--color-aliceblue);
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 10px auto;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Mensaje más visible en tema oscuro */
+.dark-theme .msg {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--color-gold);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 h2 {
-  color: rgb(77, 8, 51);
+  color: var(--color-secondary);
   letter-spacing: 1.5px;
   text-align: center;
   text-transform: capitalize;
   margin: 10px;
   font-weight: 700;
+  transition: color 0.5s ease;
+}
+
+h3 {
+  color: var(--color-text-light);
+  letter-spacing: 1px;
+  margin: 8px 0;
+  font-weight: 600;
+  transition: color 0.5s ease;
 }
 
 #contenedor_cara {
@@ -128,7 +370,7 @@ video {
 }
 
 footer {
-  color: gold;
+  color: var(--color-gold);
   text-align: center;
 }
 
@@ -144,6 +386,12 @@ footer {
   max-width: 600px;
   margin: 10px auto;
   display: block;
+  background-color: var(--color-text-light);
+  color: var(--color-input-text); /* Usar la nueva variable específica para texto en inputs */
+  border: 2px solid var(--color-primary);
+  border-radius: 4px;
+  padding: 8px;
+  transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 #tts_container select, #vtt_container button {
@@ -151,16 +399,42 @@ footer {
   display: block;
 }
 
+select {
+  padding: 6px 10px;
+  background-color: var(--color-text-light);
+  color: var(--color-input-text); /* Usar la nueva variable específica para texto en inputs */
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
 @keyframes loading {
   0% {
-    color: #e9e9e9;
+    color: var(--color-loading-start);
   }
   50% {
-    color: #b89b84;
+    color: var(--color-loading-middle);
   }
   100% {
-    color: #e9e9e9;
+    color: var(--color-loading-start);
   }
+}
+
+/* Estilo específico para etiquetas de formulario */
+label {
+  color: var(--color-label-text);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  font-size: 1.1em;
+  padding: 5px 0;
+  position: relative;
+}
+
+/* Efecto adicional para mejorar visibilidad en tema oscuro */
+.dark-theme label {
+  text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 800px) {

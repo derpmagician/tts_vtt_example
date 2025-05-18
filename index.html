@@ -4,53 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VTT y TTS ejemplo</title>
-  <link rel="stylesheet" href="voz_estilos.css">
-  <script defer src="face-api.min.js"></script>
+  <link rel="stylesheet" href="voz_estilos.css">  <script defer src="face-api.min.js"></script>
   <script defer src="cara-script.js"></script>
   <script defer src="voz-script.js"></script>
   <script defer src="transcribir_voz.js"></script>
-
-
+  <script defer src="theme-switch.js"></script>
 </head>
 <body>
-<h1 class="titulo">Sistema demo de reconocimiento</h1><span class="msg">Habilitar microfono y camara</span>
-<main id="contenedor_principal">
-  <section id="contenedor_cara">
-    <h2>Sistema de deteccion de expresiones, Genero y Edad</h2>
-    <div id="contenedor_video">
-      <canvas id="face"></canvas>
-      <video id="video" autoplay muted></video>
+<header role="banner">
+  <h1 class="titulo">Sistema demo de reconocimiento</h1>
+  <span class="msg" role="alert" aria-live="polite">Habilitar microfono y camara</span>
+  <div class="theme-toggle-container">
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+      <span class="toggle-icon" aria-hidden="true">🌓</span> Cambiar tema
+    </button>
+  </div>
+</header>
+<main id="contenedor_principal" role="main">  <section id="contenedor_cara" role="region" aria-labelledby="facial-detection-title">
+    <h2 id="facial-detection-title">Sistema de deteccion de expresiones, Genero y Edad</h2>
+    <div id="contenedor_video" role="img" aria-label="Área de detección facial en vivo">
+      <canvas id="face" aria-hidden="true"></canvas>
+      <video id="video" autoplay muted aria-label="Transmisión de video en vivo para detección facial"></video>
     </div>
-
-  </section>
-  <section id="contenedor_voz">
-    <h2>sintetizadores de voz</h2>
-    <div id="tts_container">
-      <h2>Texto a Voz (Español)</h2>
-      <textarea id="input-text" rows="8" cols="40"></textarea><br>
-      <select id="voice-select"></select><br>
-      <button onclick="textToSpeech()">Leer texto escrito</button>
-    </div>
-
-    <div id="vtt_container">
-      <h2>Voz a texto</h2>
-      <div class="vtt_comands">
-        <button id="transcribe-btn" onclick="voiceToText()">Transcribir voz a texto</button><span class="loading">empiece a hablar</span>
-        <button id="stop-transcribe-btn" onclick="stopTranscription()" disabled>Detener</button>
+  </section>  <section id="contenedor_voz" role="region" aria-labelledby="speech-title">
+    <h2 id="speech-title">Sintetizadores de voz</h2>
+    <div id="tts_container" role="form" aria-labelledby="tts-title">      <h2 id="tts-title">Texto a Voz (Español)</h2>
+      <label for="input-text">Texto para sintetizar:</label>
+      <textarea id="input-text" rows="8" cols="40" aria-multiline="true" aria-label="Ingrese texto para convertir a voz"></textarea><br>
+      <label for="voice-select">Seleccionar voz:</label>
+      <select id="voice-select" aria-label="Lista de voces disponibles"></select><br>
+      <div role="toolbar" aria-label="Controles de síntesis de voz">
+        <button onclick="textToSpeech()" aria-label="Convertir texto a voz">Leer texto escrito</button>
+        <button onclick="cancelSpeech()" aria-label="Cancelar síntesis de voz en curso">Detener lectura</button>
       </div>
-      <textarea id="output-text" rows="8" cols="40"></textarea>
-
-      <div id="voice_comands">
-        <h2>Lista de Comandos</h2>
-        <p id="commands" class="hints"></p>
+    </div>    <div id="vtt_container" role="form" aria-labelledby="vtt-title">
+      <h2 id="vtt-title">Voz a texto</h2>
+      <div class="vtt_comands" role="toolbar" aria-label="Controles de reconocimiento de voz">
+        <button id="transcribe-btn" onclick="voiceToText()" aria-label="Iniciar transcripción de voz">Transcribir voz a texto</button>
+        <span class="loading" role="status" aria-live="assertive">empiece a hablar</span>
+        <button id="stop-transcribe-btn" onclick="stopTranscription()" disabled aria-label="Detener transcripción de voz" aria-disabled="true">Detener</button>
       </div>
-
+      <label for="output-text">Texto transcrito:</label>
+      <textarea id="output-text" rows="8" cols="40" aria-multiline="true" aria-readonly="true" aria-label="Resultado de la transcripción de voz" role="textbox"></textarea>      <div id="voice_comands" role="region" aria-labelledby="commands-title">
+        <h2 id="commands-title">Lista de Comandos</h2>        <label id="theme-commands-label" for="commands" class="theme-commands">Comandos de tema:</label>
+        <p id="commands" class="hints" role="list" aria-label="Comandos de voz disponibles"></p>
+      </div>
     </div>
   </section>
 
 </main>
 
-<!-- <script src="voz-script.js"></script> -->
+<footer role="contentinfo">Hecho por Derpmagician</footer>
 </body>
-<footer>Hecho por Derpmagician</footer>
 </html>

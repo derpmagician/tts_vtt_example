@@ -90,6 +90,7 @@ Este proyecto es una aplicación web que combina varias tecnologías de interacc
    - Hable claramente
    - El texto aparecerá en el campo de salida
    - Diga un color para cambiar el fondo
+   - Diga "tema oscuro" o "tema claro" para cambiar el tema
 
 3. Para la Detección Facial:
    - Permita el acceso a la cámara
@@ -100,3 +101,12 @@ Este proyecto es una aplicación web que combina varias tecnologías de interacc
 - La detección facial puede variar según la calidad de la cámara y la iluminación
 - El reconocimiento de voz funciona mejor en ambientes silenciosos
 - Las voces disponibles dependerán del sistema operativo y navegador utilizado
+- El sistema cuenta con tema claro y oscuro, que se puede cambiar mediante el botón en la parte superior o por comandos de voz
+
+## Características de Accesibilidad
+- Roles ARIA implementados para mejorar la lectura por lectores de pantalla
+- Tema oscuro para reducir la fatiga visual
+- Anuncios de estado para informar sobre cambios en la aplicación
+- Navegación completa por teclado
+- Alto contraste en textos e interfaces
+
